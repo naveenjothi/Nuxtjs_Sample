@@ -1,13 +1,16 @@
 <template>
-  <div
-    class="drawer-toggle"
-    role="button"
-    @click="$emit('toggle')">
+  <div class="drawer-toggle" role="button" @click="$emit('toggle')">
     <div class="bar"></div>
     <div class="bar"></div>
     <div class="bar"></div>
   </div>
 </template>
+
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
+@Component
+export default class extends Vue {}
+</script>
 
 <style scoped>
 .drawer-toggle {

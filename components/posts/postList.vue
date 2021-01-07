@@ -1,30 +1,30 @@
 <template>
-    <section class="post-list">
-      <PostPreview 
-      v-for="post of posts"
+  <section class="post-list">
+    <PostPreview
+      v-for="post in posts"
       :key="post.id"
       :id="post.id"
-      :is-admin="isAdmin" 
+      :is-admin="isAdmin"
       :thumbnail="post.thumbnail"
       :previewText="post.previewText"
-      :title="post.title"/>
-    </section>
+      :title="post.title"
+    />
+  </section>
 </template>
-<script>
-import PostPreview from './PostPreview.vue'
-export default {
-  components:{
-    PostPreview
-  },
-  props:{
-    isAdmin:{
-      type:Boolean,
-      default:false
-    },
-    posts:{
-      type:Array,
-      required:true
-    }
+<script lang="ts">
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { loadedPostInterface, Post } from '../../interface/post'
+
+@Component
+export default class PostList extends Vue {
+  @Prop({ type: Boolean, default: false })
+  readonly isAdmin!: boolean
+
+  @Prop({ type: [], required: false })
+  readonly posts!: Partial<Post>[]
+
+  mounted() {
+    console.log('Posts', this.posts)
   }
 }
 </script>
@@ -37,6 +37,4 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-
 </style>

@@ -5,22 +5,25 @@
     </section>
   </div>
 </template>
-<script>
-import AdminForm from '@/components/admin/AdminForm'
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
+import AdminForm from '../../../components/admin/AdminForm.vue'
 import axios from 'axios'
-export default {
-  layout: 'admin',
-  middleware: 'auth',
+import { loadedPostInterface } from '../../../interface/post'
+
+@Component({
   components: {
     AdminForm,
   },
-  methods: {
-    onSubmitted(data) {
-      this.$store.dispatch('addPost', postData).then(() => {
-        this.$router.push('/admin')
-      })
-    },
-  },
+  layout: 'admin',
+  middleware: 'auth',
+})
+export default class NewPost extends Vue {
+  private onSubmitted(postData: loadedPostInterface) {
+    this.$store.dispatch('addPost', postData).then(() => {
+      this.$router.push('/admin')
+    })
+  }
 }
 </script>
 

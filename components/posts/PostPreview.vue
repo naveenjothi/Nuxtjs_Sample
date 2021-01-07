@@ -1,52 +1,50 @@
 <template>
-    <nuxt-link class="post-preview" :to="postLink">
-        <article>
-          <div class="post-thumbnail" :style="{backgroundImage:`url(${thumbnail})`}"></div>
-          <div class="post-content">
-            <h1>{{ title }}</h1>
-            <p>{{ previewText }}</p>
-          </div>
-        </article>
-    </nuxt-link>
+  <nuxt-link class="post-preview" :to="postLink">
+    <article>
+      <div
+        class="post-thumbnail"
+        :style="{ backgroundImage: `url(${thumbnail})` }"
+      ></div>
+      <div class="post-content">
+        <h1>{{ title }}</h1>
+        <p>{{ previewText }}</p>
+      </div>
+    </article>
+  </nuxt-link>
 </template>
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
 // https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg
-export default {
-    props:{
-      id:{
-          type:String,
-          required:true
-      },
-      isAdmin:{
-        type:Boolean,
-        required:true
-      },
-      title:{
-          type:String,
-          required:true
-      },
-      thumbnail:{
-          type:String,
-          required:true
-      },
-      previewText:{
-          type:String,
-          required:true
-      }
-    },
-    computed:{
-      postLink:function(){
-        return this.isAdmin ? '/admin/' + this.id : '/posts/' + this.id
-      },
-      postArray:function(){
-        return  {
-          id:this.id,
-          title:this.title,
-          thumbnail:this.thumbnail,
-          previewText:this.previewText
-        } 
-      }
+
+@Component
+export default class PostPreview extends Vue {
+  @Prop({ type: String, required: true })
+  readonly id!: string | undefined
+
+  @Prop({ type: Boolean, required: true })
+  readonly isAdmin!: boolean
+
+  @Prop({ type: String, required: true })
+  readonly title!: string
+
+  @Prop({ type: String, required: true })
+  readonly thumbnail!: string
+
+  @Prop({ type: String, required: true })
+  readonly previewText!: string
+
+  get postLink() {
+    return this.isAdmin ? '/admin/' + this.id : '/posts/' + this.id
+  }
+
+  get postArray() {
+    return {
+      id: this.id,
+      title: this.title,
+      thumbnail: this.thumbnail,
+      previewText: this.previewText,
     }
+  }
 }
 </script>
 <style scoped>

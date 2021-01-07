@@ -1,31 +1,31 @@
 <template>
   <div>
-    <TheHeader @sidenavToggle = "displayNav=!displayNav"/>
-    <TheSidenav @close="displayNav = false" v-bind:show="displayNav"/>
+    <TheHeader @sidenavToggle="displayNav = !displayNav" />
+    <TheSidenav @close="displayNav = false" v-bind:show="displayNav" />
     <Nuxt />
   </div>
 </template>
-<script>
-import TheSidenav from '@/components/Navigation/TheSidenav';
-import TheHeader from '@/components/Navigation/TheHeader.vue';
-export default {
-  components:{
+<script lang="ts">
+import TheSidenav from '../components/Navigation/TheSidenav.vue'
+import TheHeader from '../components/Navigation/TheHeader.vue'
+import { Component, Vue } from 'nuxt-property-decorator'
+
+@Component({
+  components: {
     TheHeader,
-    TheSidenav
+    TheSidenav,
   },
-  data(){
-    return{
-      displayNav:false
-    }
-  }
+})
+export default class DefaultLayout extends Vue {
+  public displayNav = false
 }
 </script>
 
 <style>
 html {
-  font-family: 'Oswald' ,sans-serif;
+  font-family: 'Oswald', sans-serif;
 }
-body{
+body {
   margin: 0;
 }
 </style>

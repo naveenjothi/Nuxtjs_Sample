@@ -1,32 +1,47 @@
 <template>
-    <div class="single-post-page">
-        <section class="post">
-            <h1 class="post-title">{{ loadedPost.title }}</h1>
-            <div class="post-details">
-                <div class="post-detail">Last Updated on {{ loadedPost.updatedDate | date }}</div>
-                <div class="post-detail">{{ loadedPost.author }}</div>
-            </div>
-            <p class="post-content">{{ loadedPost.content }}</p>
-        </section>
-        <section>
-            <p>{{ loadedPost.previewText }}<a href="www.google.com">feedback.my@yopmail.com</a></p>
-        </section>
-    </div>
+  <div class="single-post-page">
+    <section class="post">
+      <h1 class="post-title">{{ loadedPost.title }}</h1>
+      <div class="post-details">
+        <div class="post-detail">
+          Last Updated on {{ loadedPost.updatedDate | date }}
+        </div>
+        <div class="post-detail">{{ loadedPost.author }}</div>
+      </div>
+      <p class="post-content">{{ loadedPost.content }}</p>
+    </section>
+    <section>
+      <p>
+        {{ loadedPost.previewText
+        }}<a href="www.google.com">feedback.my@yopmail.com</a>
+      </p>
+    </section>
+  </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
 import axios from 'axios'
-export default {
-  asyncData(context){
-    return axios.get(`${process.env.baseUrl}/posts/${context.params.id}.json`)
-    .then(res => {
-      return{
-        loadedPost:res.data
-      }
-    })
-    .catch(err => {
-      context.error(err)
-    })
+import { loadedPostInterface } from '../../../interface/post'
+
+@Component({
+  asyncData(Ctx) {
+    return axios
+      .get(`${process.env.baseUrl}/posts/${Ctx.params.id}.json`)
+      .then((res) => {
+        return {
+          posts: res.data,
+        }
+      })
+      .catch((err) => {
+        Ctx.error(err)
+      })
+  },
+})
+export default class PostId extends Vue {
+  loadedPost: Partial<loadedPostInterface> = {}
+  mounted() {
+    this.loadedPost = this.$data.posts
   }
 }
 </script>

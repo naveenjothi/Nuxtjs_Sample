@@ -3,16 +3,23 @@
     <section class="intro">
       <h1>Get the latest tech News!</h1>
     </section>
-    <postList :posts="loadedPostValues"/>
+    <post-list :posts="loadedPostValues" />
   </div>
 </template>
-<script>
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
+import { loadedPostInterface } from '~/interface/post'
+import { getModule } from 'vuex-module-decorators'
+import PostModule from '~/store/post'
 
-export default {
-  computed:{
-    loadedPostValues(){
-      return this.$store.getters.loadedPostValues
-    }
+@Component
+export default class Main extends Vue {
+  private readonly postInstance = getModule(PostModule, this.$store)
+  get loadedPostValues(): loadedPostInterface[] {
+    return this.postInstance.loadedPostValues
+  }
+  created() {
+    this.postInstance.nuxtServerInit()
   }
 }
 </script>
