@@ -14,9 +14,6 @@ import { loadedPostInterface } from '../../../interface/post'
 @Component({
   layout: 'admin',
   middleware: 'auth',
-  components: {
-    AdminForm,
-  },
   asyncData(context) {
     return axios
       .get(process.env.baseUrl + '/posts/' + context.params.postId + '.json')

@@ -12,9 +12,6 @@ import axios from 'axios'
 import { loadedPostInterface } from '../../../interface/post'
 
 @Component({
-  components: {
-    AdminForm,
-  },
   layout: 'admin',
   middleware: 'auth',
 })
