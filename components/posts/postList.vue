@@ -21,7 +21,7 @@ export default class PostList extends Vue {
   readonly isAdmin!: boolean
 
   @Prop({ type: [], required: false })
-  readonly posts!: Partial<Post>[]
+  readonly posts!: Partial<loadedPostInterface>[]
 
   mounted() {
     console.log('Posts', this.posts)
