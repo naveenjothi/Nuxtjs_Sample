@@ -29,6 +29,7 @@ class UserModule extends VuexModule {
         returnSecureToken: true,
       })
       .then((result) => {
+        console.log(result)
         this.setToken(result.data.idToken)
         this.setLogoutTimer(result.data.expiresIn * 1000)
       })
